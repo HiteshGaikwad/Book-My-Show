@@ -48,4 +48,9 @@ public class UserService {
         }
         return bookedTicketList;
     }
+
+    public UserEntity findUserByName(String name){
+        UserEntity userEntity= userRepository.findByName(name);
+        return userEntity;
+    }
 }

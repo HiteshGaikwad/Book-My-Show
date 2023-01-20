@@ -39,4 +39,11 @@ public class UserController {
         return new ResponseEntity<>(bookedTicketList,HttpStatus.FOUND);
     }
 
+    @GetMapping("/find-user-by-name")
+    public ResponseEntity<UserEntity> findUserByName(@RequestParam("name") String name){
+        UserEntity userEntity= userService.findUserByName(name);
+        return new ResponseEntity<>(userEntity,HttpStatus.FOUND);
+    }
+
+
 }

@@ -32,3 +32,8 @@ public class TicketController {
         return new ResponseEntity<>("Ticket cancelled successfully and Rs."+" "+ deductedMoney +" "+ "of your amount got deducted",HttpStatus.ACCEPTED);
     }
 }
+
+
+/*
+*
+ */
