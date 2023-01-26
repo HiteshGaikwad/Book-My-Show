@@ -2,6 +2,7 @@ package com.example.BookMyShow.Convertors;
 
 import com.example.BookMyShow.Models.TheatreEntity;
 import com.example.BookMyShow.RequestDto.TheatreRequestDto;
+import com.example.BookMyShow.ResponseDto.TheatreResponseDto;
 
 public class TheatreConvertor {
 
@@ -12,5 +13,18 @@ public class TheatreConvertor {
                 .build();
 
         return theatre;
+    }
+
+    public static TheatreResponseDto convertTheatreToResponseDto(TheatreEntity theatreEntity){
+
+        TheatreResponseDto theatreResponseDto= TheatreResponseDto.builder().id(theatreEntity.getId()).name(theatreEntity.getName())
+                .city(theatreEntity.getCity()).address(theatreEntity.getAddress())
+                .build();
+
+        int numberOfSeats=theatreEntity.getTheatreSeatEntityList().size();
+
+        theatreResponseDto.setNumberOfSeats(numberOfSeats);
+
+        return theatreResponseDto;
     }
 }

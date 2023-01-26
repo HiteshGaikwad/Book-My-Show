@@ -9,5 +9,5 @@ import java.util.List;
 @Repository
 public interface TheatreRepository extends JpaRepository<TheatreEntity,Integer> {
 
-
+    TheatreEntity findByName(String name);
 }

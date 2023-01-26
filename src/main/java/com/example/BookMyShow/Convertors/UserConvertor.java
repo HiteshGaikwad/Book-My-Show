@@ -4,6 +4,7 @@ import com.example.BookMyShow.Models.TicketEntity;
 import com.example.BookMyShow.Models.UserEntity;
 import com.example.BookMyShow.RequestDto.UserRequestDto;
 import com.example.BookMyShow.ResponseDto.UserBookedTicketResponseDto;
+import com.example.BookMyShow.ResponseDto.UserEntityResponseDto;
 
 public class UserConvertor {
 
@@ -24,5 +25,15 @@ public class UserConvertor {
                 .build();
 
         return userBookedTicketResponseDto;
+    }
+
+    public static UserEntityResponseDto convertUserEntityToUserResponseDto(UserEntity userEntity){
+
+        UserEntityResponseDto userEntityResponseDto= UserEntityResponseDto.builder()
+                .id(userEntity.getId()).age(userEntity.getAge()).name(userEntity.getName()).mobile(userEntity.getMobile())
+                .createdOn(userEntity.getCreatedDate())
+                .build();
+
+        return userEntityResponseDto;
     }
 }

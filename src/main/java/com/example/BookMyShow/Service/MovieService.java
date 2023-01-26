@@ -5,6 +5,7 @@ import com.example.BookMyShow.Convertors.MovieConvertor;
 import com.example.BookMyShow.Models.MovieEntity;
 import com.example.BookMyShow.Repository.MovieRepository;
 import com.example.BookMyShow.RequestDto.MovieRequestDto;
+import com.example.BookMyShow.ResponseDto.MovieResponseDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,7 +22,19 @@ public class MovieService {
         movieRepository.save(movie);
     }
 
-    public MovieEntity getMovieByName(String movieName){
-        return movieRepository.findByMovieName(movieName);
+    public MovieResponseDto getMovieByName(String movieName){
+        MovieEntity movie= movieRepository.findByMovieName(movieName);
+
+        MovieResponseDto movieResponseDto=  MovieConvertor.convertMovieEntityToResponseDto(movie);
+
+        return movieResponseDto;
+    }
+
+    public MovieResponseDto getMovieById(int id){
+        MovieEntity movie= movieRepository.findById(id).get();
+
+        MovieResponseDto movieResponseDto= MovieConvertor.convertMovieEntityToResponseDto(movie);
+
+        return movieResponseDto;
     }
 }

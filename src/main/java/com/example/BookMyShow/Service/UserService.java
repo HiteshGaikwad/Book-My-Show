@@ -8,6 +8,7 @@ import com.example.BookMyShow.Models.UserEntity;
 import com.example.BookMyShow.Repository.UserRepository;
 import com.example.BookMyShow.RequestDto.UserRequestDto;
 import com.example.BookMyShow.ResponseDto.UserBookedTicketResponseDto;
+import com.example.BookMyShow.ResponseDto.UserEntityResponseDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,9 +28,14 @@ public class UserService {
         userRepository.save(user);
     }
 
-    public UserEntity getUserById(int id){
-        return userRepository.findById(id).get();
+    public UserEntityResponseDto getUserById(int id){
+        UserEntity userEntity= userRepository.findById(id).get();
+
+        UserEntityResponseDto userEntityResponseDto= UserConvertor.convertUserEntityToUserResponseDto(userEntity);
+
+        return userEntityResponseDto;
     }
+
 
     public List<UserBookedTicketResponseDto> getAllTicketBookedByUser(int userId){
 
@@ -49,8 +55,26 @@ public class UserService {
         return bookedTicketList;
     }
 
-    public UserEntity findUserByName(String name){
+    public UserEntityResponseDto findUserByName(String name){
         UserEntity userEntity= userRepository.findByName(name);
-        return userEntity;
+        UserEntityResponseDto  userEntityResponseDto =UserConvertor.convertUserEntityToUserResponseDto(userEntity);
+        return userEntityResponseDto;
+    }
+
+
+    public List<UserEntityResponseDto> findAllUsers(){
+        List<UserEntity> userEntityList=new ArrayList<>();
+
+        userEntityList= userRepository.findAll();
+
+        List<UserEntityResponseDto> userList=new ArrayList<>();
+
+        for(UserEntity user: userEntityList){
+
+            UserEntityResponseDto userResponseDto= UserConvertor.convertUserEntityToUserResponseDto(user);
+            userList.add(userResponseDto);
+        }
+
+        return userList;
     }
 }

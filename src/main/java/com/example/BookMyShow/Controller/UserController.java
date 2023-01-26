@@ -4,6 +4,7 @@ package com.example.BookMyShow.Controller;
 import com.example.BookMyShow.Models.UserEntity;
 import com.example.BookMyShow.RequestDto.UserRequestDto;
 import com.example.BookMyShow.ResponseDto.UserBookedTicketResponseDto;
+import com.example.BookMyShow.ResponseDto.UserEntityResponseDto;
 import com.example.BookMyShow.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,12 +25,12 @@ public class UserController {
 
         userService.createUser(userRequestDto);
 
-        return new ResponseEntity<>("Successful", HttpStatus.CREATED);
+        return new ResponseEntity<>("User has been created Successfully", HttpStatus.CREATED);
     }
 
-    @GetMapping("/get-user")
-    public ResponseEntity<UserEntity> getUserById(@RequestParam("id") int id){
-        UserEntity user= userService.getUserById(id);
+    @GetMapping("/get-user-by-id")
+    public ResponseEntity<UserEntityResponseDto> getUserById(@RequestParam("id") int id){
+        UserEntityResponseDto user= userService.getUserById(id);
         return new ResponseEntity<>(user, HttpStatus.FOUND);
     }
 
@@ -40,10 +41,16 @@ public class UserController {
     }
 
     @GetMapping("/find-user-by-name")
-    public ResponseEntity<UserEntity> findUserByName(@RequestParam("name") String name){
-        UserEntity userEntity= userService.findUserByName(name);
+    public ResponseEntity<UserEntityResponseDto> findUserByName(@RequestParam("name") String name){
+        UserEntityResponseDto userEntity= userService.findUserByName(name);
         return new ResponseEntity<>(userEntity,HttpStatus.FOUND);
     }
 
+    @GetMapping("/find-all-users")
+    public ResponseEntity<List<UserEntityResponseDto>> findAllUsers(){
+
+        List<UserEntityResponseDto> userEntityResponseDtoList= userService.findAllUsers();
+        return new ResponseEntity<>(userEntityResponseDtoList, HttpStatus.FOUND);
+    }
 
 }
